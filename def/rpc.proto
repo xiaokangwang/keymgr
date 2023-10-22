@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package org.kkdev.keymgr.def;
+option go_package = "github.com/xiaokangwang/keymgr/def";
+
+message GetPrimaryKeyHashReq{
+}
+
+message GetPrimaryKeyHashResp{
+  bytes primaryKey = 1;
+}
+
+message CreateECDSAKeyReq{
+  string keySeed = 1;
+}
+
+message CreateECDSAKeyResp{
+  bytes publicBlob = 2;
+  string ssh_public_key = 3;
+}
+
+message SignWithECDSAKeyReq{
+  string keySeed = 1;
+  bytes data = 2;
+}
+message SignWithECDSAKeyResp{
+  bytes signature = 3;
+}
+
+service TPMKeyService {
+  rpc GetPrimaryKeyHash(GetPrimaryKeyHashReq) returns (GetPrimaryKeyHashResp);
+  rpc CreateECDSAKey(CreateECDSAKeyReq) returns (CreateECDSAKeyResp);
+  rpc SignWithECDSAKey(SignWithECDSAKeyReq) returns (SignWithECDSAKeyResp);
+}
